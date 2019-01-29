@@ -23,6 +23,7 @@ public class cubeController : MonoBehaviour {
         myObject.x = transform.position.x;
         myObject.y = transform.position.y;
         myObject.z = transform.position.z;
+        myObject.testString = "테스트!!!";
 
         string jsonStringTrial = JsonUtility.ToJson(myObject);
 
@@ -50,4 +51,5 @@ public class MyClass
      public string playerName;
      */
     public float x, y, z;
+    public string testString;
 }

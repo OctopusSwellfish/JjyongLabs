@@ -63,14 +63,31 @@ Icon?
 ehthumbs.db
  
 Thumbs.db
+
+##Linux##
+
+.directory
+
+*~
  
+
 GraphicsSettings.asset
  
 ProjectSettings.asset
  
 ProjectVersion.txt
 
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
 
-출처: https://minhyeokism.tistory.com/67 [programmer-dominic.kim]
 
-출처: https://minhyeokism.tistory.com/67 [programmer-dominic.kim]
+# Coveralls
+coverage
+
+# Benchmarking
+benchmarks/graphs
+
+
