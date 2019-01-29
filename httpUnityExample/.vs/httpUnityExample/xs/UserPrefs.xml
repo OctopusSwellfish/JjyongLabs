@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{37036136-015E-F1C6-6F21-74C525FD1477}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/cubeController.cs">
     <Files>
-      <File FileName="Assets/cubeController.cs" Line="26" Column="40" />
+      <File FileName="Assets/cubeController.cs" Line="26" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
