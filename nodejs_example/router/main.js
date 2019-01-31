@@ -1,5 +1,7 @@
+
 module.exports = (app, fs) =>{
-  app.get('/', (req,res) =>{
+ /*
+    app.get('/', (req,res) =>{
     var sess = req.session;
 
     res.render('index', {
@@ -145,9 +147,9 @@ module.exports = (app, fs) =>{
       res.redirect('/');
     }
   });
-
+*/
   app.put('/test', (req,res)=>{
-    var data = req.body
+    var data = req.body.testString;
     console.log(data);
   });
 }
