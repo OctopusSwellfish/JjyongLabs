@@ -149,7 +149,7 @@ module.exports = (app, fs) =>{
   });
 */
   app.put('/test', (req,res)=>{
-    var data = req.body.testString;
+    var data = req.body;
     console.log(data);
   });
 }
