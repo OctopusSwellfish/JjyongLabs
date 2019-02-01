@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class cubeController : MonoBehaviour {
     float speed = 20.0f;
-    OldClass previousObject = new OldClass();
+    MyClass previousObject = new MyClass();
     // Use this for initialization
     void Start () {
 
@@ -43,25 +43,14 @@ public class cubeController : MonoBehaviour {
         string tempX = myObject.x.ToString("N4");
         string tempY = myObject.y.ToString("N4");
         string tempZ = myObject.z.ToString("N4");
-       /*
-        Debug.Log(tempX);
-        Debug.Log(tempY);
-        Debug.Log(tempZ);
        
-        Debug.Log("aaaaaaaaa");
-       */       
         string tempOX = previousObject.x.ToString("N4");
         string tempOY = previousObject.y.ToString("N4");
         string tempOZ = previousObject.z.ToString("N4");
-        /*
-        Debug.Log(tempOX);
-        Debug.Log(tempOY);
-        Debug.Log(tempOZ);
-            */
+
 
            if (tempOX.Equals(tempX) && tempOY.Equals(tempY) && tempOZ.Equals(tempZ))
            {
-              // Debug.Log("0");
                yield break;
 
            }
@@ -70,12 +59,9 @@ public class cubeController : MonoBehaviour {
             previousObject.x = transform.position.x;
             previousObject.y = transform.position.y;
             previousObject.z = transform.position.z;
-           // Debug.Log("1");
                
                string jsonStringTrial = JsonUtility.ToJson(myObject);
 
-               //List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-               //formData.Add(new MultipartFormDataSection("aaaaa"));
                UnityWebRequest www = UnityWebRequest.Put("http://127.0.0.1:3000/test", jsonStringTrial);
 
                www.SetRequestHeader("Content-Type", "application/json");
@@ -106,10 +92,4 @@ public class MyClass
      */
     public float x, y, z;
     public string testString;
-}
-public class OldClass
-{
-    public float x, y, z;
-    public string testString;
-
 }

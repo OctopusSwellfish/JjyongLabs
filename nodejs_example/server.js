@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var fs = require("fs");
+//Sequelize 사용 구문
 var sequelize = require('./models').sequelize;
 
 sequelize.sync();

@@ -148,8 +148,23 @@ module.exports = (app, fs) =>{
     }
   });
 */
+    
   app.put('/test', (req,res)=>{
+    var dataX = req.body.x;
+    var dataY = req.body.y;
+    var dataZ = req.body.z;
+    var dataString = req.body.testString;
+    
+    const { test } = require('../models');
+      test.create({
+          x: dataX,
+          y: dataY,
+          z: dataZ,
+          teststring: dataString,
+      });
+    /*
     var data = req.body;
     console.log(data);
+    */
   });
 }
