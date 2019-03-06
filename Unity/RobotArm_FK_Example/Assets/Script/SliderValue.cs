@@ -22,7 +22,7 @@ public class SliderValue : MonoBehaviour {
     }
     public void UpdateValue ()
     {
-        slider.value = ((int)slider.value / 5) * 5;
+        //slider.value = ((int)slider.value / 5) * 5;
         textValue.text = slider.value.ToString();
     }
 	
