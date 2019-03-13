@@ -51,7 +51,7 @@ public class ArmController : MonoBehaviour
         mMoveArtCorutine = false;
         while (!mStop)
         {
-            float speed = 0.65F;
+            float speed = 100F;
             float degree = 0;
 
             for (int i = 0; i < Cylinder.Length; i++)
@@ -67,7 +67,7 @@ public class ArmController : MonoBehaviour
                     if (Math.Abs(ArtSlider[i].value - degree) > 2)
                     {
                         Cylinder[i].transform.localRotation = Quaternion.Lerp(Cylinder[i].transform.localRotation,
-                            Quaternion.Euler(0, ArtSlider[i].value, 0), Time.deltaTime * speed);
+                            Quaternion.Euler(0, ArtSlider[i].value, 0), speed * Time.deltaTime / Quaternion.Angle(Cylinder[i].transform.localRotation,Quaternion.Euler(0, ArtSlider[i].value, 0)));
                     }
                     else
                     {
@@ -85,7 +85,7 @@ public class ArmController : MonoBehaviour
                     if (Math.Abs(ArtSlider[i].value - degree) > 2)
                     {
                         Cylinder[i].transform.localRotation = Quaternion.Lerp(Cylinder[i].transform.localRotation,
-                            Quaternion.Euler(ArtSlider[i].value, 0, 0), Time.deltaTime * speed);
+                            Quaternion.Euler(ArtSlider[i].value, 0, 0), speed * Time.deltaTime / Quaternion.Angle(Cylinder[i].transform.localRotation, Quaternion.Euler(0, ArtSlider[i].value, 0)));
                     }
                     else
                     {
