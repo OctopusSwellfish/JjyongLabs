@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-    public float RotationSpeed = 10f;  // 회전 속도
+
+    public float horizontalSpeed = 25f;
+    public float verticalSpeed = 40f;
+
     public float ZoomSpeed = 20f;       // 줌 속도
 
-    private Transform InitPos;          // 카메라 초기 위치
     private Transform MainCamera;       // 메인 카메라 위치
+    private float rotX = 0;
+    private float rotY = 0;
+    private Vector3 dir;
+
 
     // Use this for initialization
     void Start () {
@@ -32,11 +38,18 @@ public class CameraController : MonoBehaviour {
     {
         if (Input.GetMouseButton(1))
         {
-            float rotX = Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime;
-            float rotY = Input.GetAxis("Mouse Y") * RotationSpeed * Time.deltaTime;
+            rotX = Input.GetAxis("Mouse X") * horizontalSpeed * Time.deltaTime;
+            rotY = Input.GetAxis("Mouse Y") * verticalSpeed * Time.deltaTime;
 
-            MainCamera.transform.Rotate(Vector3.up, -rotX);
-            MainCamera.transform.Rotate(Vector3.right, rotY);
-        }
+            MainCamera.transform.RotateAround(transform.position, Vector3.up, -rotX);
+            MainCamera.transform.RotateAround(transform.position, Vector3.right, rotY);
+
+            //MainCamera.LookAt(transform.position);
+        } 
+    }
+
+    private void LateUpdate()
+    {
+        MainCamera.transform.LookAt(transform.position);
     }
 }

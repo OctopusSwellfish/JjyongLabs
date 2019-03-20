@@ -6,14 +6,16 @@ using UnityEngine.UI;
 public class GripperController : MonoBehaviour
 {
 
-    private Slider mGripperSlider;
 
     public GameObject IddleGearR, PivorArmR, IddleGearAR, GripperR; // Right Gripper
     public GameObject ServoGearL, PivorArmL, ServoGearAL, GripperL; // Left Gripper
-
     public GameObject GripperColliderR, GripperColliderL; // Gripper Collider
 
+    private bool check = false;
+    private int maxValue = 85;
+    private Slider mGripperSlider;
     private GripperCollision GripperCollisionR, GripperCollisionL;
+
 
     void Awake()
     {
@@ -32,19 +34,33 @@ public class GripperController : MonoBehaviour
     void Update()
     {
         GameObject other = GripperCollisionR.getOtherCollider();
-        if (GripperCollisionR.getIsCollision() && GripperCollisionL.getIsCollision())
+        if (other != null )
         {
-            other.transform.parent = transform;
-            other.GetComponent<Rigidbody>().isKinematic = true;
-            other.GetComponent<Rigidbody>().useGravity = false;
+            if (GripperCollisionR.getIsCollision() && GripperCollisionL.getIsCollision())
+            {
+                other.transform.parent = transform;
+                other.GetComponent<Rigidbody>().useGravity = false;
+                if (!check)
+                {
+                    maxValue = (int)mGripperSlider.value;
+                    check = true;
+                }
+            }
+            else if (!GripperCollisionR.getIsCollision() && !GripperCollisionL.getIsCollision())
+            {
+                other.transform.parent = null;
+                other.GetComponent<Rigidbody>().useGravity = true;
+                other.transform.rotation = Quaternion.Euler(0, 0, 0);
+                GripperCollisionR.setOtherCollider(null);
+                check = false;
+            }
+
         }
-        else if (!GripperCollisionR.getIsCollision() && !GripperCollisionL.getIsCollision())
+
+        if((int)mGripperSlider.value >= maxValue)
         {
-            other.transform.parent = null;
-            other.GetComponent<Rigidbody>().isKinematic = false;
-            other.GetComponent<Rigidbody>().useGravity = true;
+            mGripperSlider.value = maxValue;
         }
-        
     }
 
     void FixedUpdate()
@@ -58,5 +74,26 @@ public class GripperController : MonoBehaviour
         ServoGearL.transform.localRotation = Quaternion.Euler(0, 0, -mGripperSlider.value);
         PivorArmL.transform.localRotation = Quaternion.Euler(0, 0, -mGripperSlider.value);
         GripperL.transform.position = ServoGearAL.transform.position;
+    }
+
+    IEnumerator CollisionCheck() {
+        GameObject other = GripperCollisionR.getOtherCollider();
+        if (other != null)
+        {
+            if (GripperCollisionR.getIsCollision() && GripperCollisionL.getIsCollision())
+            {
+                other.transform.parent = transform;
+                other.GetComponent<Rigidbody>().isKinematic = true;
+                other.GetComponent<Rigidbody>().useGravity = false;
+            }
+            else if (!GripperCollisionR.getIsCollision() && !GripperCollisionL.getIsCollision())
+            {
+                other.transform.parent = null;
+                other.GetComponent<Rigidbody>().isKinematic = false;
+                other.GetComponent<Rigidbody>().useGravity = true;
+            }
+        }
+
+        yield return new WaitForSeconds(0.1f);
     }
 }

@@ -6,17 +6,20 @@ public class GripperCollision: MonoBehaviour {
 
     private GameObject otherCollider = null;
     private bool isCollision = false;
-
+    private bool Check = false;
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log("OnCollisionEnter");
-        isCollision = true;
-        otherCollider = col.gameObject;;
+        if (col.transform.parent == null)
+        {
+            
+            isCollision = true;
+            otherCollider = col.gameObject;
+        }
+
     }
     void OnCollisionExit(Collision col)
     {
         isCollision = false;
-        Debug.Log("OnCollisionExit");
     }
 
     // Use this for initialization
@@ -36,5 +39,9 @@ public class GripperCollision: MonoBehaviour {
     public GameObject getOtherCollider()
     {
         return otherCollider;
+    }
+    public void setOtherCollider(GameObject state)
+    {
+        otherCollider = state;
     }
 }
