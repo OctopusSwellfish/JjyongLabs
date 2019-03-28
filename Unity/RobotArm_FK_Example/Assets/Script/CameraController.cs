@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
+
     public float horizontalSpeed = 25f;
     public float verticalSpeed = 40f;
 
@@ -13,7 +14,6 @@ public class CameraController : MonoBehaviour {
     private float rotX = 0;
     private float rotY = 0;
     private Vector3 dir;
-
 
     // Use this for initialization
     void Start () {
@@ -52,4 +52,5 @@ public class CameraController : MonoBehaviour {
     {
         MainCamera.transform.LookAt(transform.position);
     }
+
 }
