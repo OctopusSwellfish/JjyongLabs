@@ -57,20 +57,52 @@ public class SliderValue : MonoBehaviour {
         switch (slider.value)
         {
             case 0:
+                titleText.text = "Forward Kinematics";
+                for (int i = 0; i < ArtSliderTitle.Length; i++)
+                {
+                    ArtSliderTitle[i].text = "Articulation " + (i + 1);
+                }
+                for (int i = 0; i < ArtSlider.Length; i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                        case 3:
+                        case 5:
+                            ArtSlider[i].maxValue = 180;
+                            ArtSliderMaxValue[i].text = "180°";
+                            ArtSlider[i].minValue = -180;
+                            ArtSliderMinValue[i].text = "-180°";
+                            break;
+                        default:
+                            ArtSlider[i].maxValue = 90f;
+                            ArtSliderMaxValue[i].text = "90°";
+                            ArtSlider[i].minValue = -90f;
+                            ArtSliderMinValue[i].text = "-90°";
+                            break;
+
+                    }
+                }
+                /*
+                // default value
                 ArtSlider[0].value = 0;
                 ArtSlider[1].value = -45;
                 ArtSlider[2].value = 90;
                 ArtSlider[3].value = 0;
                 ArtSlider[4].value = 45;
                 ArtSlider[5].value = 0;
-
-
-                titleText.text = "Forward Kinematics";
-                for (int i = 0; i < ArtSliderTitle.Length; i++)
-                {
-                    ArtSliderTitle[i].text = "Articulation " + (i + 1);
-                }
+                */
+                
+                // test value
+                ArtSlider[0].value = 0;
+                ArtSlider[1].value = 0;
+                ArtSlider[2].value = 0;
+                ArtSlider[3].value = 0;
+                ArtSlider[4].value = 0;
+                ArtSlider[5].value = 0;
+                
                 break;
+
             case 1:
                 titleText.text = "Inverse Kinematics";
                 for (int i = 0; i < ArtSlider.Length; i++)

@@ -46,7 +46,7 @@ public class ThorController : MonoBehaviour {
         {
             if (FKinematics)
             {
-                float speed = 100F;
+                float speed = 50F;
                 float degree = 0;
 
                 for (int i = 0; i < Cylinder.Length; i++)
