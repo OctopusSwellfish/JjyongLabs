@@ -7,6 +7,7 @@ public class GripperCollision: MonoBehaviour {
     private GameObject otherCollider = null;
     private bool isCollision = false;
     private bool Check = false;
+
     void OnCollisionEnter(Collision col)
     {
         if (col.transform.parent == null)
