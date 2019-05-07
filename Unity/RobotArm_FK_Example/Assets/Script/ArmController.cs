@@ -223,7 +223,7 @@ public class ArmController : MonoBehaviour
     {
         while (true)
         {
-            if (Collison.instance.PlaneCheck())
+            if (Collison.instance.SphereCheck())
             {
                 mText.text = "Start";
                 mStop = true;

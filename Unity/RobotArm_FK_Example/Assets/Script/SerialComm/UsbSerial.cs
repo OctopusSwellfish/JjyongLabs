@@ -22,6 +22,7 @@ namespace SerialComm
             mPortName = strPortName;
             mBaudRate = nBaudRate;
         }
+
         public void Open()
         {
             if (!_serialPort.IsOpen)

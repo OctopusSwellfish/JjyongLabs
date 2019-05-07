@@ -76,4 +76,9 @@ public class GripperController : MonoBehaviour
         pivotArmL.transform.localRotation = Quaternion.Euler(0, 0, -mGripperSlider.value);
         GripperL.transform.position = ServoGearAL.transform.position;
     }
+
+    public int getMaxValue()
+    {
+        return maxValue;
+    }
 }

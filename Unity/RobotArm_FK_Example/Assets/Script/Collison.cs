@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collison : MonoBehaviour {
     public static Collison instance;
-    private GameObject Plane;
+    private GameObject Sphere;
 
     void OnTriggerEnter(Collider col)
     {
@@ -14,17 +14,17 @@ public class Collison : MonoBehaviour {
     void OnTriggerExit(Collider col)
     {
         //Debug.Log("OnTriggerExit");
-        this.Plane.GetComponent<MeshRenderer>().material.color = Color.yellow;
+        this.Sphere.GetComponent<MeshRenderer>().material.color = Color.green;
     }
     void OnTriggerStay(Collider col)
     {
         //Debug.Log("OOnTriggerStay");
-        this.Plane.GetComponent<MeshRenderer>().material.color = Color.red;
+        this.Sphere.GetComponent<MeshRenderer>().material.color = Color.red;
     }
 
-    public bool PlaneCheck()
+    public bool SphereCheck()
     {
-        if (this.Plane.GetComponent<MeshRenderer>().material.color == Color.red)
+        if (this.Sphere.GetComponent<MeshRenderer>().material.color == Color.red)
             return true;
         else
             return false;
@@ -33,7 +33,8 @@ public class Collison : MonoBehaviour {
     void Awake()
     {
         instance = this;
-        this.Plane = GameObject.Find("Plane");
+        this.Sphere = GameObject.Find("Sphere");
+        this.Sphere.GetComponent<MeshRenderer>().material.color = Color.green;
     }
 
     // Use this for initialization
