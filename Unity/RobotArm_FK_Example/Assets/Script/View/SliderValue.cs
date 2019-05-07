@@ -54,7 +54,7 @@ public class SliderValue : MonoBehaviour {
 
     public void OnChangedKinematics()
     {
-        switch (slider.value)
+        switch ((int)slider.value)
         {
             case 0:
                 titleText.text = "Forward Kinematics";

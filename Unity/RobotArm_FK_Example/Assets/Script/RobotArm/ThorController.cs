@@ -195,7 +195,7 @@ public class ThorController : MonoBehaviour
     public void OnChangedKinematics()
     {
 
-        switch (KinematicsSlider.value)
+        switch ((int)KinematicsSlider.value)
         {
             case 0:
                 FKinematics = true;
@@ -298,7 +298,6 @@ public class ThorController : MonoBehaviour
 
     IEnumerator Test1()
     {
-        Debug.Log("B");
         yield return new WaitWhile(() => isMovement != true);
         // Step 1
         if (step <= 0)
@@ -403,7 +402,6 @@ public class ThorController : MonoBehaviour
             StopCoroutine("UngrippedObject");
             if (!mUndoTest1)
             {
-                Debug.Log("a");
                 test2();
                 StartCoroutine("unTest1");
                 mUndoTest1 = true;
