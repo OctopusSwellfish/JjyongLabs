@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: c18f530fc79befc4888bd3857a627d5d
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: ART1
+    100002: ART2
+    100004: ART3
+    100006: ART4
+    100008: ART5
+    100010: ART6
+    100012: BASE
+    100014: Cylinder1
+    100016: Cylinder2
+    100018: Cylinder3
+    100020: Cylinder4
+    100022: Cylinder5
+    100024: Cylinder6
+    100026: GRIPPER_BEARIN_A
+    100028: GRIPPER_BEARIN_B
+    100030: GRIPPER_CLAW_L
+    100032: GRIPPER_CLAW_R
+    100034: GRIPPER_GEAR
+    100036: GRIPPER_MOUNT_B
+    100038: GRIPPER_SERVO
+    100040: GRIPPER_SERVOMOUNT
+    100042: //RootNode
+    400000: ART1
+    400002: ART2
+    400004: ART3
+    400006: ART4
+    400008: ART5
+    400010: ART6
+    400012: BASE
+    400014: Cylinder1
+    400016: Cylinder2
+    400018: Cylinder3
+    400020: Cylinder4
+    400022: Cylinder5
+    400024: Cylinder6
+    400026: GRIPPER_BEARIN_A
+    400028: GRIPPER_BEARIN_B
+    400030: GRIPPER_CLAW_L
+    400032: GRIPPER_CLAW_R
+    400034: GRIPPER_GEAR
+    400036: GRIPPER_MOUNT_B
+    400038: GRIPPER_SERVO
+    400040: GRIPPER_SERVOMOUNT
+    400042: //RootNode
+    2100000: unnamed
+    2300000: ART1
+    2300002: ART2
+    2300004: ART3
+    2300006: ART4
+    2300008: ART5
+    2300010: ART6
+    2300012: BASE
+    2300014: Cylinder1
+    2300016: Cylinder2
+    2300018: Cylinder3
+    2300020: Cylinder4
+    2300022: Cylinder5
+    2300024: Cylinder6
+    2300026: GRIPPER_BEARIN_A
+    2300028: GRIPPER_BEARIN_B
+    2300030: GRIPPER_CLAW_L
+    2300032: GRIPPER_CLAW_R
+    2300034: GRIPPER_GEAR
+    2300036: GRIPPER_MOUNT_B
+    2300038: GRIPPER_SERVO
+    2300040: GRIPPER_SERVOMOUNT
+    3300000: ART1
+    3300002: ART2
+    3300004: ART3
+    3300006: ART4
+    3300008: ART5
+    3300010: ART6
+    3300012: BASE
+    3300014: Cylinder1
+    3300016: Cylinder2
+    3300018: Cylinder3
+    3300020: Cylinder4
+    3300022: Cylinder5
+    3300024: Cylinder6
+    3300026: GRIPPER_BEARIN_A
+    3300028: GRIPPER_BEARIN_B
+    3300030: GRIPPER_CLAW_L
+    3300032: GRIPPER_CLAW_R
+    3300034: GRIPPER_GEAR
+    3300036: GRIPPER_MOUNT_B
+    3300038: GRIPPER_SERVO
+    3300040: GRIPPER_SERVOMOUNT
+    4300000: Cylinder2
+    4300002: Cylinder1
+    4300004: ART6
+    4300006: ART5
+    4300008: ART3
+    4300010: ART2
+    4300012: ART1
+    4300014: BASE
+    4300016: ART4
+    4300018: GRIPPER_CLAW_L
+    4300020: GRIPPER_CLAW_R
+    4300022: GRIPPER_GEAR
+    4300024: GRIPPER_MOUNT_B
+    4300026: GRIPPER_SERVO
+    4300028: GRIPPER_SERVOMOUNT
+    4300030: GRIPPER_BEARIN_A
+    4300032: GRIPPER_BEARIN_B
+    4300034: Cylinder3
+    4300036: Cylinder4
+    4300038: Cylinder6
+    4300040: Cylinder5
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
