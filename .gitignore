@@ -91,3 +91,5 @@ coverage
 benchmarks/graphs
 
 
+#
+config.json
