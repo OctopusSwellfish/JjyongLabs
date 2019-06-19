@@ -9,8 +9,7 @@ using UnityEngine.Networking;
 public class StoredClass
 
 {
-    //public float[,] stored_theta = new float[6, 3];
-    //public float[,] stored_artslider = new float[6, 3];
+
     public String result;
     public float gripperValue;
     public float[] transform_value = new float[6];
@@ -22,7 +21,7 @@ public class StoredClass
    public void Send()
     {
         string json_send = JsonUtility.ToJson(this);
-        UnityWebRequest www = UnityWebRequest.Put("127.0.0.1", json_send);
+        UnityWebRequest www = UnityWebRequest.Put("http://127.0.0.1:3000/DB/", json_send);
         Debug.Log(json_send);
 
         www.SetRequestHeader("Content-Type", "application/json");
@@ -92,6 +91,7 @@ public class ThorController : MonoBehaviour
         StartCoroutine("MoveArt");
         StartCoroutine("isMovementCheck");
         StartCoroutine("CollsionCheck");
+        StartCoroutine("SendWeb");
     }
 
     // Update is called once per frame
@@ -215,13 +215,7 @@ public class ThorController : MonoBehaviour
             if (!double.IsNaN(theta[5]))
                 Cylinder[5].transform.localEulerAngles = new Vector3(0, 0, (float)theta[5] * Mathf.Rad2Deg);
 
-           // string jsonStringTrial = JsonUtility.ToJson(storedclass);
-
-          //  UnityWebRequest www = UnityWebRequest.Put("http://54.180.39.228/DB/", jsonStringTrial);
-
-          //  www.SetRequestHeader("Content-Type", "application/json");
-
-           // www.SendWebRequest();
+    
         
         }
 
@@ -255,26 +249,11 @@ public class ThorController : MonoBehaviour
     public void TransformValue(float value1, float value2, float value3, float value4, float value5, float value6)
     {
         ArtSlider[0].value = value1;
-        Debug.Log("트랜스폼밸류0 변경"+ArtSlider[0].value);
         ArtSlider[1].value = value2;
-        Debug.Log("트랜스폼밸류1 변경" + ArtSlider[1].value);
         ArtSlider[2].value = value3;
-        Debug.Log("트랜스폼밸류2 변경" + ArtSlider[2].value);
         ArtSlider[3].value = value4;
-        Debug.Log("트랜스폼밸류3 변경" + ArtSlider[3].value);
         ArtSlider[4].value = value5;
-        Debug.Log("트랜스폼밸류4 변경" + ArtSlider[4].value);
         ArtSlider[5].value = value6;
-        Debug.Log("트랜스폼밸류5 변경" + ArtSlider[5].value);
-
-        storedclass.transform_value[0] = ArtSlider[0].value;
-        storedclass.transform_value[1] = ArtSlider[1].value;
-        storedclass.transform_value[2] = ArtSlider[2].value;
-        storedclass.transform_value[3] = ArtSlider[3].value;
-        storedclass.transform_value[4] = ArtSlider[4].value;
-        storedclass.transform_value[5] = ArtSlider[5].value;
-
-        storedclass.Send();
     }
 
 
@@ -364,9 +343,7 @@ public class ThorController : MonoBehaviour
         if (step <= 0)
         {
             TransformValue(0, 60, 75, 0, 0, 0);
-            Debug.Log("트랜스폼 1");
             yield return new WaitForSeconds(2f);
-            Debug.Log("Ehdld뚜잉");
             yield return new WaitWhile(() => isMovement != true);
             step = 1;
         }
@@ -383,7 +360,6 @@ public class ThorController : MonoBehaviour
         if (step <= 2)
         {
             TransformValue(0, 25, 60, 0, 0, 0);
-            Debug.Log("트랜스폼 2");
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => isMovement != true);
             step = 3;
@@ -392,7 +368,6 @@ public class ThorController : MonoBehaviour
         if (step <= 3)
         {
             TransformValue(-135, 25, 60, 0, 0, 0);
-            Debug.Log("트랜스폼 3");
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => isMovement != true);
             step = 4;
@@ -401,7 +376,6 @@ public class ThorController : MonoBehaviour
         if (step <= 4)
         {
             StartCoroutine(UngrippedObject());
-            Debug.Log("트랜스폼 4");
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => gripperCheck != true);
             gripperCheck = false;
@@ -522,5 +496,20 @@ public class ThorController : MonoBehaviour
         }
 
     }
-}
 
+    IEnumerator SendWeb()
+    {
+        storedclass.transform_value[0] = Cylinder[0].transform.localEulerAngles.z;
+        storedclass.transform_value[1] = Cylinder[1].transform.localEulerAngles.y;
+        storedclass.transform_value[2] = Cylinder[2].transform.localEulerAngles.y;
+        storedclass.transform_value[3] = Cylinder[3].transform.localEulerAngles.z;
+        storedclass.transform_value[4] = Cylinder[4].transform.localEulerAngles.y;
+        storedclass.transform_value[5] = Cylinder[5].transform.localEulerAngles.z;
+
+        storedclass.Send();
+
+        yield return new WaitForSeconds(0.1f);
+
+        StartCoroutine("SendWeb");
+    }
+}
