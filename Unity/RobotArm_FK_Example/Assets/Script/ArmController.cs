@@ -14,6 +14,9 @@ public class ArmController : MonoBehaviour
     private bool mStop = false;
     private bool mMoveArtCorutine = false;
 
+
+    private KinectManager kinectManager;
+
     
     private bool isMovement = false;
     void Awake()
