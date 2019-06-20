@@ -2,6 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+
+public class HttpComm
+{
+    public void Recv()
+    {
+        UnityWebRequest www = UnityWebRequest.Get("http://www.my-server.com");
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
+        }
+    }
+}
 
 public class ThorController : MonoBehaviour
 {
@@ -12,7 +34,8 @@ public class ThorController : MonoBehaviour
     public GameObject[] RotationAxes;   // Rotation Axis 1~6
 
     private float[] RotationAxisAngles = { 0, 0, 0, 0, 0, 0 };  // Angle of Rotation Axis 1~6
-    private int GripperValue = 0;
+    private float GripperValue = 0;
+    private HttpComm httpComm = new HttpComm();
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +96,7 @@ public class ThorController : MonoBehaviour
             }
         }
         
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         StartCoroutine(OnRotatedAxis());
     }
 
@@ -99,14 +122,17 @@ public class ThorController : MonoBehaviour
     IEnumerator OnUpdatedValue()
     {
         // Http Comm
+        httpComm.Recv();
 
-        RotationAxisAngles[0] = (float)(RotationAxisAngles[0] + 0.1);
-        RotationAxisAngles[1] = (float)(RotationAxisAngles[1] + 0.1);
-        RotationAxisAngles[2] = (float)(RotationAxisAngles[2] + 0.1);
-        RotationAxisAngles[3] = (float)(RotationAxisAngles[3] + 0.1);
-        RotationAxisAngles[4] = (float)(RotationAxisAngles[4] + 0.1);
-        RotationAxisAngles[5] = (float)(RotationAxisAngles[5] + 0.1);
-        GripperValue++;
+        //
+        for (int i = 0; i < RotationAxisAngles.Length; i++)
+        {
+            if (RotationAxisAngles[i] < 45)
+            {
+                RotationAxisAngles[i] = (float)(RotationAxisAngles[0] + 0.5);
+                GripperValue = (float)(GripperValue + 0.5);
+            }
+        }
 
         yield return new WaitForSeconds(0.1f);
         StartCoroutine(OnUpdatedValue());
