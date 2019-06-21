@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
+var sequelize = require('../models').sequelize;
 var robot = require('../models').robot;
 
 router.put('/', function(req, res, next) {
 	var data = req.body;
-	
+		
 	console.log(data);
 
 	var Result = req.body.result;
@@ -43,9 +44,24 @@ router.put('/', function(req, res, next) {
 	});
 });
 
-router.get('/', function(req, res, next){ 
-	res.render('store', {title:'get heeo'});
+router.get('/', function(req, res, next){
+	res.render('store', {title:'get'});
 });
+
+
+router.get('/data', function(req, res, next){ 
+	
+	robot.sequelize.query('select * from robots order by id desc limit 1', {type: sequelize.QueryTypes.SELECT}).then(function(resultSet){
+	console.log(resultSet);
+	
+	res.json(resultSet);
+	}).catch(function(err){
+		console.log("에러 :"+err);
+	});
+
+});
+
+
 
 router.post('/', function(req, res, next){
 	console.log("ajax 호출");
