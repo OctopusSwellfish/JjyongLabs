@@ -10,9 +10,21 @@
 
     
     <body>
-	<h2><span>Robot arms status</span></h2>
+	<h2><span class="title">Robot arms status</span></h2>
        <div class="frame"><iframe width=100% height=100% src="http://54.180.39.228:3000/test/"></iframe></div>
-        <div class="log"></div>
+        <div class="log">
+		<p class="scene1"><span>시나리오1 어쩌구</span></p>
+                <p><span>↓</span></p>
+                <p class="scene2"><span>시나리오2 어쩌구</span></p>
+                <p><span>↓</span></p>
+                <p class="scene3"><span>시나리오3 어쩌구</span></p>
+                <p><span>↓</span></p>
+                <p class="scene4"><span>시나리오4 어쩌구</span></p>
+                <p><span>↓</span></p>
+                <p class="scene5"><span>시나리오5 어쩌구</span></p>
+                <p><span>↓</span></p>
+                <p class="scene6"><span>시나리오6 어쩌구</span></p>
+	</div>
     <textarea id="textarea" name="textarea" class="hehe"></textarea>
 
  <script>
@@ -22,7 +34,7 @@
                        url: '/DB/',
                         dataType: 'json',
                         type: 'POST',
-                        data: {'hello': 'hi',},
+                        data: {'hello': 'hi'},
                         
                         success: function(result){
 			var pre_val = $('#textarea').val();
