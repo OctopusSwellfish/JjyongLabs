@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,19 @@ using UnityEngine.Networking;
 
 public class HttpComm
 {
+    [Serializable]
+    public class axisInfo
+    {
+        public float gripperValue;
+        public float[] transform_value = new float[6];
+
+    }
+
     public void Recv()
     {
-        UnityWebRequest www = UnityWebRequest.Get("http://www.my-server.com");
+        UnityWebRequest www = UnityWebRequest.Get("http://54.180.39.228:3000/DB/data");
+
+        www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
         {
@@ -16,11 +27,24 @@ public class HttpComm
         }
         else
         {
-            // Show results as text
             Debug.Log(www.downloadHandler.text);
 
             // Or retrieve results as binary data
             byte[] results = www.downloadHandler.data;
+            /*
+            string jsonString = File.ReadAllText(Application.dataPath + "/Saves/data.json");
+            Debug.Log(jsonString);
+            
+            axisInfo data = JsonUtility.FromJson<axisInfo>(jsonString);
+            Debug.Log(data);
+            
+            /*
+            Debug.Log(data.gripperValue);
+            for (int i = 0; i < 6; i++)
+            {
+                Debug.Log(data.transform_value[i]);
+            }
+            */
         }
     }
 }
@@ -124,7 +148,7 @@ public class ThorController : MonoBehaviour
         // Http Comm
         httpComm.Recv();
 
-        //
+        /*
         for (int i = 0; i < RotationAxisAngles.Length; i++)
         {
             if (RotationAxisAngles[i] < 45)
@@ -133,8 +157,9 @@ public class ThorController : MonoBehaviour
                 GripperValue = (float)(GripperValue + 0.5);
             }
         }
+        */
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine(OnUpdatedValue());
     }
 }

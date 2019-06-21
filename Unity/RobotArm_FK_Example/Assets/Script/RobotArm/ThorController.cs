@@ -21,7 +21,7 @@ public class StoredClass
    public void Send()
     {
         string json_send = JsonUtility.ToJson(this);
-        UnityWebRequest www = UnityWebRequest.Put("http://127.0.0.1:3000/DB/", json_send);
+        UnityWebRequest www = UnityWebRequest.Put("http://54.180.39.228:3000/DB/", json_send);
         Debug.Log(json_send);
 
         www.SetRequestHeader("Content-Type", "application/json");
@@ -506,9 +506,11 @@ public class ThorController : MonoBehaviour
         storedclass.transform_value[4] = Cylinder[4].transform.localEulerAngles.y;
         storedclass.transform_value[5] = Cylinder[5].transform.localEulerAngles.z;
 
+        storedclass.gripperValue = GripperSlider.value;
+
         storedclass.Send();
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
 
         StartCoroutine("SendWeb");
     }
