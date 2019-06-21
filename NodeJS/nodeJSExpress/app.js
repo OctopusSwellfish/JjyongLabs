@@ -6,8 +6,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var compression = require('compression');
 
 var DBRouter = require('./routes/store');
+var TestRouter = require('./routes/test');
 
 var sequelize = require('./models').sequelize;
 
@@ -19,6 +21,9 @@ sequelize.sync();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+////
+app.use(compression());
+////
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +34,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use('/DB', DBRouter);
+app.use('/test', TestRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -34,25 +34,25 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 		},
 		gripperValue: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.DOUBLE,
 		},
 		transform_value_0: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.DOUBLE,
 		},
  		transform_value_1: {
-                        type: DataTypes.INTEGER,
+                        type: DataTypes.DOUBLE,
                 },
 		 transform_value_2: {
-                        type: DataTypes.INTEGER,
+                        type: DataTypes.DOUBLE,
                 },
 		 transform_value_3: {
-                        type: DataTypes.INTEGER,
+                        type: DataTypes.DOUBLE,
                 },
 		 transform_value_4: {
-                        type: DataTypes.INTEGER,
+                        type: DataTypes.DOUBLE,
                 },
 		 transform_value_5: {
-                        type: DataTypes.INTEGER,
+                        type: DataTypes.DOUBLE,
                 },
 			
 	}, {

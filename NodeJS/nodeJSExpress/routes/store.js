@@ -5,7 +5,7 @@ var robot = require('../models').robot;
 
 router.put('/', function(req, res, next) {
 	var data = req.body;
-	
+		
 	console.log(data);
 
 	var Result = req.body.result;
