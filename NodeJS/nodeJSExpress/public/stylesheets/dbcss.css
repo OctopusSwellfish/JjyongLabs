@@ -7,7 +7,7 @@
 	width:100%;
 	text-align: center;
 }
-span{
+.title{
 	border:1px solid black;
 	padding:5px;
 	background-color: #A6B8C4;
@@ -28,6 +28,8 @@ span{
     width:49%;
     height:400px;
     float:left;
+
+    text-align: center;
 }
 
 *>.hehe{

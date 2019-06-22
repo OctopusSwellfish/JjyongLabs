@@ -55,6 +55,7 @@ router.get('/data', function(req, res, next){
 	console.log(resultSet);
 	
 	res.json(resultSet);
+	console.log("보냈습니다");
 	}).catch(function(err){
 		console.log("에러 :"+err);
 	});
