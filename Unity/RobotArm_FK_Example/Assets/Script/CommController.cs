@@ -3,11 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
 using System;
+using SerialComm;
 
 public class CommController : MonoBehaviour
 {
     public static CommController instance;
+
     private SerialPort _SerialPort = new SerialPort();
+    private UsbSerial usbSerial = new UsbSerial();
+    private bool fristRecv = false;
+
+    public bool FristRecv
+    {
+        get
+        {
+            return fristRecv;
+        }
+
+        set
+        {
+            fristRecv = value;
+        }
+    }
 
     void Awake()
     {
@@ -17,53 +34,52 @@ public class CommController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _SerialPort.PortName = "COM4";
-        _SerialPort.BaudRate = (int)115200;
-
-        _SerialPort.DataBits = 8;
-        _SerialPort.Parity = Parity.None;
-        _SerialPort.StopBits = StopBits.One;
-        _SerialPort.ReadTimeout = 50;
-        _SerialPort.WriteTimeout = 1;
-        _SerialPort.NewLine = "\n";
-
-        _SerialPort.Open();
-        _SerialPort.DiscardOutBuffer();
-        _SerialPort.DiscardInBuffer();
+        usbSerial.Open();
+        StartCoroutine(recv());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_SerialPort.IsOpen)
+    }
+
+    
+   
+    IEnumerator recv()
+    {
+        if (usbSerial.IsOpen)
         {
-            Debug.Log(ReadLineBlocing());
+            string temp = usbSerial.ReadLineBlocking();
+            //Debug.Log(temp);
+            if (temp != null)
+            {
+                Debug.Log(temp);
+                fristRecv = true;
+                yield return new WaitForSeconds(0.1f);
+                Debug.Log(usbSerial.ReadLineBlocking());
+            }
+        }
+        yield return new WaitForSeconds(0.5f);
+        if (fristRecv == false)
+        {
+            StartCoroutine(recv());
         }
     }
 
-    public string ReadLineBlocing()
-    {
-        try{ return _SerialPort.ReadLine(); } catch { return null; }
 
+    public void send(string text)
+    {
+        if(fristRecv != false)
+        {
+            usbSerial.Write(text);
+            fristRecv = false;
+            StartCoroutine(recv());
+        }
     }
 
-    public void Write(byte b)
-    {
-        _SerialPort.Write(new byte[] { b }, 0, 1);
-    }
-
-    public void Write(string text)
-    {
-        _SerialPort.Write(text);
-    }
 
     void OnApplicationQuit()
     {
-        if (_SerialPort.IsOpen)
-        {
-            try { _SerialPort.DiscardOutBuffer(); } catch { }
-            try { _SerialPort.DiscardInBuffer(); } catch { }
-            try { _SerialPort.Close(); } catch { }
-        }
+        usbSerial.Close();
     }
 }

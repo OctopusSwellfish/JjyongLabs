@@ -14,7 +14,7 @@ namespace SerialComm
 
         public UsbSerial()
         {
-            mPortName = "COM4"; 
+            mPortName = "COM3"; 
             mBaudRate = (int)115200;  
         }
         public UsbSerial(string strPortName, int nBaudRate)

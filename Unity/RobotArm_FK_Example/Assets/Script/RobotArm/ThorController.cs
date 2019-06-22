@@ -47,7 +47,7 @@ public class ThorController : MonoBehaviour
     public Slider GripperSlider;
 
     public GameObject gripper;
-
+    public GameObject commGameObject;
 
     public Slider KinematicsSlider;
     public static double[] theta = new double[6];    //angle of the joints
@@ -64,6 +64,7 @@ public class ThorController : MonoBehaviour
     private int step = 0;
 
     private GripperController gripperController;
+    private CommController commController;
 
     private float L1, L2, L3, L4, L5, L6;    //arm length in order from base
     private float C3;
@@ -85,7 +86,7 @@ public class ThorController : MonoBehaviour
         C3 = 0.0f;
 
         gripperController = gripper.GetComponent<GripperController>();
-
+        commController = commGameObject.GetComponent<CommController>();
         mCube = GameObject.Find("Cube");
 
         StartCoroutine("MoveArt");
@@ -300,7 +301,6 @@ public class ThorController : MonoBehaviour
     {
 
         StartCoroutine("Test1");
-        Debug.Log("온클릭 테스트");
 
     }
 
@@ -308,7 +308,7 @@ public class ThorController : MonoBehaviour
     {
         if (gripperController.getMaxValue() > GripperSlider.value + 1)
         {
-            Debug.Log("" + gripperController.getMaxValue());
+            //.Log("" + gripperController.getMaxValue());
             GripperSlider.value++;
             yield return new WaitForSeconds(0.05f);
             StartCoroutine(GrippedObject());
@@ -342,9 +342,11 @@ public class ThorController : MonoBehaviour
         // Step 1
         if (step <= 0)
         {
+            //commController.send("G0 A0 B60 C75 X0 Y0 Z0 \n");
             TransformValue(0, 60, 75, 0, 0, 0);
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => isMovement != true);
+            //yield return new WaitWhile(() => commController.FristRecv != true);
             step = 1;
         }
         // Step 2 - Gripped object
@@ -359,14 +361,17 @@ public class ThorController : MonoBehaviour
         // Step 3
         if (step <= 2)
         {
+            //commController.send("G0 A0 B25 C60 X0 Y0 Z0 \n");
             TransformValue(0, 25, 60, 0, 0, 0);
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => isMovement != true);
+            //yield return new WaitWhile(() => commController.FristRecv != true);
             step = 3;
         }
         // Step 4
         if (step <= 3)
         {
+            //commController.send("G0 A-135 B25 C60 X0 Y0 Z0 \n");
             TransformValue(-135, 25, 60, 0, 0, 0);
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => isMovement != true);
@@ -508,7 +513,7 @@ public class ThorController : MonoBehaviour
 
         storedclass.gripperValue = GripperSlider.value;
 
-        storedclass.Send();
+        //storedclass.Send();
 
         yield return new WaitForSeconds(1f);
 
