@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Text;
 
 public class HttpComm
 {
@@ -15,11 +16,21 @@ public class HttpComm
 
     }
 
-    public void Recv()
+    public class testinfo
+    {
+        public float gripperValue;
+        public double transform_value_0;
+        public double transform_value_1;
+        public double transform_value_2;
+        public double transform_value_3;
+        public double transform_value_4;
+        public double transform_value_5;
+    }
+
+    public  IEnumerator Recv()
     {
         UnityWebRequest www = UnityWebRequest.Get("http://54.180.39.228:3000/DB/data");
-
-        www.SendWebRequest();
+        yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
         {
@@ -31,6 +42,27 @@ public class HttpComm
 
             // Or retrieve results as binary data
             byte[] results = www.downloadHandler.data;
+
+            string str = Encoding.Default.GetString(results);
+
+            Debug.Log(str);
+
+
+            str = str.Substring(0, str.Length - 1);
+            str = str.Substring(1, str.Length - 1);
+
+
+            testinfo test = JsonUtility.FromJson<testinfo>(str);
+
+            Debug.Log(test.gripperValue);
+            Debug.Log(test.transform_value_0);
+            Debug.Log(test.transform_value_1);
+            Debug.Log(test.transform_value_2);
+            Debug.Log(test.transform_value_3);
+            Debug.Log(test.transform_value_4);
+            Debug.Log(test.transform_value_5);
+
+
             /*
             string jsonString = File.ReadAllText(Application.dataPath + "/Saves/data.json");
             Debug.Log(jsonString);
@@ -146,7 +178,7 @@ public class ThorController : MonoBehaviour
     IEnumerator OnUpdatedValue()
     {
         // Http Comm
-        httpComm.Recv();
+        StartCoroutine(httpComm.Recv());
 
         /*
         for (int i = 0; i < RotationAxisAngles.Length; i++)

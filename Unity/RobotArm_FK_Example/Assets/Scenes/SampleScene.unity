@@ -2743,7 +2743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &47961150
 Transform:
   m_ObjectHideFlags: 0
@@ -2765,7 +2765,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47961149}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1c03d291d4de934dba706bb7e485d70, type: 3}
   m_Name: 
@@ -30637,6 +30637,7 @@ MonoBehaviour:
   - {fileID: 1232524583}
   GripperSlider: {fileID: 208802106}
   gripper: {fileID: 1005349137}
+  commGameObject: {fileID: 47961149}
   KinematicsSlider: {fileID: 300484823}
 --- !u!54 &748371177
 Rigidbody:
