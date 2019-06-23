@@ -3,6 +3,7 @@ var router = express.Router();
 
 var sequelize = require('../models').sequelize;
 var robot = require('../models').robot;
+var scene = require('../models').scene;
 
 router.put('/', function(req, res, next) {
 	var data = req.body;
@@ -17,7 +18,7 @@ router.put('/', function(req, res, next) {
 	var transform_Value_3 = req.body.transform_value[3];
 	var transform_Value_4 = req.body.transform_value[4];
 	var transform_Value_5 = req.body.transform_value[5];
-
+	
 	console.log(Result);
 	console.log(GripperValue);
 	console.log(transform_Value_0);
@@ -51,7 +52,7 @@ router.get('/', function(req, res, next){
 
 router.get('/data', function(req, res, next){ 
 	
-	robot.sequelize.query('select * from robots order by id desc limit 1', {type: sequelize.QueryTypes.SELECT}).then(function(resultSet){
+	sequelize.query('select * from robots order by id desc limit 1', {type: sequelize.QueryTypes.SELECT}).then(function(resultSet){
 	console.log(resultSet);
 	
 	res.json(resultSet);
@@ -62,10 +63,41 @@ router.get('/data', function(req, res, next){
 
 });
 
+router.put('/data', function(req, res, next){
+	var scene = req.body.step;
+	
+	scene.create({
+		step: scene,
+	}).then(function(data){
+		console.log("시나리오 추가 성공!");
+	}).catch(function(err){
+		console.log("err=>"+err);
+	});
+	
 
+});
+
+router.post('/data', function(req, res, next){
+	console.log("/data ajax 호출");
+
+	var meg = req.body;
+	console.log(meg);
+
+	sequelize.query('select * from scenes order by id desc limit 1', {type:sequelize.QueryTypes.SELECT})
+	.then(function(resultSet){
+	var response = resultSet;
+	
+	console.log(response);
+	res.json(response);
+	console.log("step 보냈습니다");
+	}).catch(function(err){
+		console.log("에러 : "+err);
+	});
+
+});
 
 router.post('/', function(req, res, next){
-	console.log("ajax 호출");
+	console.log("/ ajax 호출");
 
 	var meg = req.body;	
 	console.log(meg);
@@ -82,4 +114,7 @@ router.post('/', function(req, res, next){
 	
 	//console.log(response);
 });
+
+
+
 module.exports = router;
