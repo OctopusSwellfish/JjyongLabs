@@ -2,7 +2,7 @@
 <html>
     
     <head>
-    <title>hihihi</title>
+    <title>Robot arm status</title>
     <link rel="stylesheet" href="/stylesheets/dbcss.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -10,20 +10,20 @@
 
     
     <body>
-	<h2><span class="title">Robot arms status</span></h2>
+	<h2><span class="title">Robot arm status</span></h2>
        <div class="frame"><iframe width=100% height=100% src="http://54.180.39.228:3000/test/"></iframe></div>
         <div class="log">
-		<p class="scene1"><span>시나리오1 어쩌구</span></p>
+		<p id="scene1"><span>시나리오1 어쩌구</span></p>
                 <p><span>↓</span></p>
-                <p class="scene2"><span>시나리오2 어쩌구</span></p>
+                <p id="scene2"><span>시나리오2 어쩌구</span></p>
                 <p><span>↓</span></p>
-                <p class="scene3"><span>시나리오3 어쩌구</span></p>
+                <p id="scene3"><span>시나리오3 어쩌구</span></p>
                 <p><span>↓</span></p>
-                <p class="scene4"><span>시나리오4 어쩌구</span></p>
+                <p id="scene4"><span>시나리오4 어쩌구</span></p>
                 <p><span>↓</span></p>
-                <p class="scene5"><span>시나리오5 어쩌구</span></p>
+                <p id="scene5"><span>시나리오5 어쩌구</span></p>
                 <p><span>↓</span></p>
-                <p class="scene6"><span>시나리오6 어쩌구</span></p>
+                <p id="scene6"><span>시나리오6 어쩌구</span></p>
 	</div>
     <textarea id="textarea" name="textarea" class="hehe"></textarea>
 
@@ -43,6 +43,41 @@
                     });
                 }, 1000)
             })
+
+	$(function(){
+		timer = setInterval(function() {
+		$.ajax({
+			url: '/DB/data',
+			dataType: 'json',
+			type: 'POST',
+			data: {'hello': 'hi'},
+			
+			success: function(result){
+				document.getElementById('scene1').style.fontWeight='normal';
+				document.getElementById('scene2').style.fontWeight='normal';
+				document.getElementById('scene3').style.fontWeight='normal';
+				document.getElementById('scene4').style.fontWeight='normal';
+				document.getElementById('scene5').style.fontWeight='normal';
+				document.getElementById('scene6').style.fontWeight='normal';
+
+				var scene = result[0].step;
+				if(scene==1){
+				document.getElementById('scene1').style.fontWeight='bold';
+				}else if(scene==2){
+				document.getElementById('scene2').style.fontWeight='bold';
+				}else if(scene==3){
+				document.getElementById('scene3').style.fontWeight='bold';
+				}else if(scene==4){
+				document.getElementById('scene4').style.fontWeight='bold';
+				}else if(scene==5){
+				document.getElementById('scene5').style.fontWeight='bold';
+				}else if(scene==6){
+				document.getElementById('scene6').style.fontWeight='bold';
+				}						
+			}
+		});
+	}, 1000)
+	})
     </script>    
 
         </body>
