@@ -13,10 +13,6 @@ public class StoredClass
     public String result;
     public float gripperValue;
     public float[] transform_value = new float[6];
-    void Start()
-    {
-
-    }
 
    public void Send()
     {
@@ -38,9 +34,34 @@ public class StoredClass
     }
 }
 
+public class StepClass
+{
+
+    public int step;
+    public void Send()
+    {
+        string json_send = JsonUtility.ToJson(this);
+        UnityWebRequest www = UnityWebRequest.Put("http://54.180.39.228:3000/DB/scene", json_send);
+        Debug.Log(json_send);
+
+        www.SetRequestHeader("Content-Type", "application/json");
+        www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+        }
+    }
+}
+
 public class ThorController : MonoBehaviour
 {
     StoredClass storedclass = new StoredClass();
+    StepClass stepClass = new StepClass();
 
     public GameObject[] Cylinder = new GameObject[6];
     public Slider[] ArtSlider = new Slider[6];
@@ -338,11 +359,12 @@ public class ThorController : MonoBehaviour
 
     IEnumerator Test1()
     {
+        /*
         yield return new WaitWhile(() => isMovement != true);
         // Step 1
         if (step <= 0)
         {
-            //commController.send("G0 A0 B60 C75 X0 Y0 Z0 \n");
+            //commController.send("G0 A10 B0 C0 D10 X0 Y5 Z5 \n");
             TransformValue(0, 60, 75, 0, 0, 0);
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => isMovement != true);
@@ -385,12 +407,100 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => gripperCheck != true);
             gripperCheck = false;
             step = 5;
+        }*/
+
+        yield return new WaitWhile(() => isMovement != true);
+
+
+        // Step 1
+        if (step <= 0)
+        {
+            TransformValue(0, 0, 0, 0, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+            commController.send("G0 A0 B0 C0 D0 X0 Y0 Z0 \n");
+            yield return new WaitWhile(() => commController.FristRecv != true);
+            step = 1;
+            stepClass.step = step;
+            stepClass.Send();
+        }
+        // Step 2
+        if (step <= 1)
+        {
+            TransformValue(-90, 0, 0, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+            commController.send("G0 A-45 B0 C0 D0 X-11 Y0 Z0 \n");
+            yield return new WaitWhile(() => commController.FristRecv != true);
+            step = 2;
+            stepClass.step = step;
+            stepClass.Send();
+        }
+        // Step 3
+        if (step <= 2)
+        {
+            TransformValue(-90, -30, -90, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+            commController.send("G0 A-45 B-15 C-15 D-45 X-11 Y0 Z0 \n");
+            yield return new WaitWhile(() => commController.FristRecv != true);
+            step = 3;
+            stepClass.step = step;
+            stepClass.Send();
+        }
+        // Step 4
+        if (step <= 3)
+        {
+            TransformValue(-90, -30, -90, 90, 60, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+            commController.send("G0 A-45 B-15 C-15 D-45 X-11 Y2 Z-2 \n");
+            yield return new WaitWhile(() => commController.FristRecv != true);
+            step = 4;
+            stepClass.step = step;
+            stepClass.Send();
+        }
+        // Step 5
+        if (step <= 4)
+        {
+            TransformValue(90, 0, 0, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+            commController.send("G0 A45 B0 C0 D0 X-11 Y0 Z0 \n");
+            yield return new WaitWhile(() => commController.FristRecv != true);
+            step = 5;
+            stepClass.step = step;
+            stepClass.Send();
+        }
+        // Step 6
+        if (step <= 5)
+        {
+            TransformValue(90, -30, -60, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+            commController.send("G0 A45 B-15 C-15 D-45 X-11 Y0 Z0 \n");
+            yield return new WaitWhile(() => commController.FristRecv != true);
+            step = 6;
+            stepClass.step = step;
+            stepClass.Send();
+        }
+        // Step 7
+        if (step <= 6)
+        {
+            TransformValue(0, 0, 0, 0, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+            commController.send("G0 A0 B0 C0 D0 X0 Y0 Z0 \n");
+            yield return new WaitWhile(() => commController.FristRecv != true);
+            step = 7;
+            stepClass.step = step;
+            stepClass.Send();
         }
     }
 
     IEnumerator unTest1()
     {
-
+        /*
         if (step == 5)
         {
             StartCoroutine(GrippedObject());
@@ -429,10 +539,54 @@ public class ThorController : MonoBehaviour
             TransformValue(0, 0, 0, 0, 0, 0);
             yield return new WaitForSeconds(2f);
             yield return new WaitWhile(() => isMovement != true);
+        }*/
+
+
+        if (step == 7)
+        {
+            TransformValue(0, 0, 0, 0, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+        }
+        if (step == 6)
+        {
+            TransformValue(90, -30, -60, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+        }
+        if (step == 5)
+        {
+            TransformValue(90, 0, 0, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+        }
+        if (step == 4)
+        {
+            TransformValue(-90, -30, -90, 90, 60, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+        }
+        if (step == 3)
+        {
+            TransformValue(-90, -30, -90, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+        }
+
+        if (step == 2)
+        {
+            TransformValue(-90, 0, 0, 90, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
+        }
+        if (step == 1)
+        {
+            TransformValue(0, 0, 0, 0, 0, 0);
+            yield return new WaitForSeconds(2f);
+            yield return new WaitWhile(() => isMovement != true);
         }
         StartCoroutine("Test1");
-
-
     }
 
 
@@ -518,5 +672,10 @@ public class ThorController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         StartCoroutine("SendWeb");
+    }
+
+    public void onRun()
+    {
+        
     }
 }

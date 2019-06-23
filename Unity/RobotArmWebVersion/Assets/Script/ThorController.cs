@@ -6,8 +6,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 
+
 public class HttpComm
 {
+
+    ThorController thorController;
+
     [Serializable]
     public class axisInfo
     {
@@ -27,8 +31,10 @@ public class HttpComm
         public double transform_value_5;
     }
 
-    public  IEnumerator Recv()
+    public IEnumerator Recv()
     {
+        thorController = GameObject.Find("Thor").GetComponent<ThorController>();
+
         UnityWebRequest www = UnityWebRequest.Get("http://54.180.39.228:3000/DB/data");
         yield return www.SendWebRequest();
 
@@ -54,29 +60,12 @@ public class HttpComm
 
             testinfo test = JsonUtility.FromJson<testinfo>(str);
 
-            Debug.Log(test.gripperValue);
-            Debug.Log(test.transform_value_0);
-            Debug.Log(test.transform_value_1);
-            Debug.Log(test.transform_value_2);
-            Debug.Log(test.transform_value_3);
-            Debug.Log(test.transform_value_4);
-            Debug.Log(test.transform_value_5);
-
-
-            /*
-            string jsonString = File.ReadAllText(Application.dataPath + "/Saves/data.json");
-            Debug.Log(jsonString);
-            
-            axisInfo data = JsonUtility.FromJson<axisInfo>(jsonString);
-            Debug.Log(data);
-            
-            /*
-            Debug.Log(data.gripperValue);
-            for (int i = 0; i < 6; i++)
-            {
-                Debug.Log(data.transform_value[i]);
-            }
-            */
+            thorController.RotationAxisAngles[0] = (float)test.transform_value_0;
+            thorController.RotationAxisAngles[1] = (float)test.transform_value_1;
+            thorController.RotationAxisAngles[2] = (float)test.transform_value_2;
+            thorController.RotationAxisAngles[3] = (float)test.transform_value_3;
+            thorController.RotationAxisAngles[4] = (float)test.transform_value_4;
+            thorController.RotationAxisAngles[5] = (float)test.transform_value_5;
         }
     }
 }
@@ -89,9 +78,10 @@ public class ThorController : MonoBehaviour
 
     public GameObject[] RotationAxes;   // Rotation Axis 1~6
 
-    private float[] RotationAxisAngles = { 0, 0, 0, 0, 0, 0 };  // Angle of Rotation Axis 1~6
+    public float[] RotationAxisAngles = { 0, 0, 0, 0, 0, 0 };  // Angle of Rotation Axis 1~6
     private float GripperValue = 0;
     private HttpComm httpComm = new HttpComm();
+
 
     // Start is called before the first frame update
     void Start()
