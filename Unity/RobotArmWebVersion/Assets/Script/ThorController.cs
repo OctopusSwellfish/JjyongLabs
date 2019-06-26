@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Text;
 
@@ -11,6 +12,7 @@ public class HttpComm
 {
 
     ThorController thorController;
+    public Text text;
 
     [Serializable]
     public class axisInfo
@@ -33,6 +35,7 @@ public class HttpComm
 
     public IEnumerator Recv()
     {
+        text = GameObject.Find("Text").GetComponent<Text>();
         thorController = GameObject.Find("Thor").GetComponent<ThorController>();
 
         UnityWebRequest www = UnityWebRequest.Get("http://54.180.39.228:3000/DB/data");
@@ -40,10 +43,12 @@ public class HttpComm
 
         if (www.isNetworkError || www.isHttpError)
         {
+            text.text = www.error;
             Debug.Log(www.error);
         }
         else
         {
+            text.text = www.downloadHandler.text;
             Debug.Log(www.downloadHandler.text);
 
             // Or retrieve results as binary data
@@ -75,7 +80,6 @@ public class ThorController : MonoBehaviour
 
     public GameObject idlerGearR, pivotArmR, idlerGearAR, GripperR; // Right Gripper
     public GameObject ServoGearL, pivotArmL, ServoGearAL, GripperL; // Left Gripper
-
     public GameObject[] RotationAxes;   // Rotation Axis 1~6
 
     public float[] RotationAxisAngles = { 0, 0, 0, 0, 0, 0 };  // Angle of Rotation Axis 1~6

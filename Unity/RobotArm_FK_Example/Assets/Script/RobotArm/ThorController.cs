@@ -420,6 +420,7 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => isMovement != true);
             commController.send("G0 A0 B0 C0 D0 X0 Y0 Z0 \n");
             yield return new WaitWhile(() => commController.FristRecv != true);
+            yield return new WaitForSeconds(2f);
             step = 1;
             stepClass.step = step;
             stepClass.Send();
@@ -432,6 +433,7 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => isMovement != true);
             commController.send("G0 A-45 B0 C0 D0 X-11 Y0 Z0 \n");
             yield return new WaitWhile(() => commController.FristRecv != true);
+            yield return new WaitForSeconds(2f);
             step = 2;
             stepClass.step = step;
             stepClass.Send();
@@ -444,6 +446,7 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => isMovement != true);
             commController.send("G0 A-45 B-15 C-15 D-45 X-11 Y0 Z0 \n");
             yield return new WaitWhile(() => commController.FristRecv != true);
+            yield return new WaitForSeconds(2f);
             step = 3;
             stepClass.step = step;
             stepClass.Send();
@@ -456,6 +459,7 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => isMovement != true);
             commController.send("G0 A-45 B-15 C-15 D-45 X-11 Y2 Z-2 \n");
             yield return new WaitWhile(() => commController.FristRecv != true);
+            yield return new WaitForSeconds(2f);
             step = 4;
             stepClass.step = step;
             stepClass.Send();
@@ -468,6 +472,7 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => isMovement != true);
             commController.send("G0 A45 B0 C0 D0 X-11 Y0 Z0 \n");
             yield return new WaitWhile(() => commController.FristRecv != true);
+            yield return new WaitForSeconds(2f);
             step = 5;
             stepClass.step = step;
             stepClass.Send();
@@ -480,9 +485,10 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => isMovement != true);
             commController.send("G0 A45 B-15 C-15 D-45 X-11 Y0 Z0 \n");
             yield return new WaitWhile(() => commController.FristRecv != true);
+            yield return new WaitForSeconds(2f);
             step = 6;
             stepClass.step = step;
-            stepClass.Send();
+            //stepClass.Send();
         }
         // Step 7
         if (step <= 6)
@@ -492,6 +498,7 @@ public class ThorController : MonoBehaviour
             yield return new WaitWhile(() => isMovement != true);
             commController.send("G0 A0 B0 C0 D0 X0 Y0 Z0 \n");
             yield return new WaitWhile(() => commController.FristRecv != true);
+            yield return new WaitForSeconds(2f);
             step = 7;
             stepClass.step = step;
             stepClass.Send();
@@ -598,7 +605,7 @@ public class ThorController : MonoBehaviour
             mStop = true;
 
             storedclass.result = "true";
-          //  storedclass.Send();
+            //storedclass.Send();
 
             StopCoroutine("Test1");
             StopCoroutine("GrippedObject");
@@ -658,16 +665,32 @@ public class ThorController : MonoBehaviour
 
     IEnumerator SendWeb()
     {
-        storedclass.transform_value[0] = Cylinder[0].transform.localEulerAngles.z;
-        storedclass.transform_value[1] = Cylinder[1].transform.localEulerAngles.y;
-        storedclass.transform_value[2] = Cylinder[2].transform.localEulerAngles.y;
-        storedclass.transform_value[3] = Cylinder[3].transform.localEulerAngles.z;
-        storedclass.transform_value[4] = Cylinder[4].transform.localEulerAngles.y;
-        storedclass.transform_value[5] = Cylinder[5].transform.localEulerAngles.z;
+        float degree = 0;
 
+        for (int i = 0; i < Cylinder.Length; i++)
+        {
+            if (i == 0 || i == 3 || i == 5)
+            {
+                if (ArtSlider[i].value >= 0)
+                    degree = (int)Cylinder[i].transform.localEulerAngles.z;
+                else
+                    degree = (int)Cylinder[i].transform.localEulerAngles.z - 360;
+                storedclass.transform_value[i] = degree;
+
+            }
+            else
+            {
+                if (ArtSlider[i].value >= 0)
+                    degree = (int)Cylinder[i].transform.localEulerAngles.y;
+                else
+                    degree = (int)Cylinder[i].transform.localEulerAngles.y - 360;
+                storedclass.transform_value[i] = degree;
+            }
+        }
+        
         storedclass.gripperValue = GripperSlider.value;
 
-        //storedclass.Send();
+        storedclass.Send();
 
         yield return new WaitForSeconds(1f);
 
@@ -676,6 +699,11 @@ public class ThorController : MonoBehaviour
 
     public void onRun()
     {
-        
+        string command = "G0 A" + ArtSlider[0].value / 2 + " B" + ArtSlider[1].value / 2 + " C" + ArtSlider[1].value / 2 +
+            " D" + ArtSlider[2].value / 2 + " X" + ArtSlider[3].value * -11 / 90 + " Y" + ArtSlider[4].value / 30 +
+            " Z" + ArtSlider[4].value / -30 + "\n";
+        Debug.Log(command);
+        commController.send(command);
+
     }
 }
