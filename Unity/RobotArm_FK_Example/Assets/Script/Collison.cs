@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class Collison : MonoBehaviour {
     public static Collison instance;
+    private GameObject TestSphere;
     private GameObject sphere;
 
     void OnTriggerEnter(Collider col)
     {
         //Debug.Log("OnTriggerEnter" + " x : " + transform.position.x + " y : " + transform.position.y);
+ 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, col.transform.position , out hit))
+        {
+            TestSphere.transform.position = hit.point;
+        }
+
     }
 
     void OnTriggerExit(Collider col)
     {
         //Debug.Log("OnTriggerExit");
+        
         this.sphere.GetComponent<MeshRenderer>().material.color = Color.green;
     }
     void OnTriggerStay(Collider col)
@@ -21,6 +30,7 @@ public class Collison : MonoBehaviour {
         //Debug.Log("OOnTriggerStay");
         this.sphere.GetComponent<MeshRenderer>().material.color = Color.red;
     }
+    
 
     public bool SphereCheck()
     {
@@ -33,6 +43,7 @@ public class Collison : MonoBehaviour {
     void Awake()
     {
         instance = this;
+        this.TestSphere = GameObject.Find("TestSphere");
         this.sphere = GameObject.Find("SafeSphere");
         this.sphere.GetComponent<MeshRenderer>().material.color = Color.green;
     }

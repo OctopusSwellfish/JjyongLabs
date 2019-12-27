@@ -40,6 +40,7 @@ public class ArmController : MonoBehaviour
         StartCoroutine("MoveArt");
         StartCoroutine("isMovementCheckCo");
         StartCoroutine("CollsionCheck");
+   
 
     }
 

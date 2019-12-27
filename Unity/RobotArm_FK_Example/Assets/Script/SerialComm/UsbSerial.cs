@@ -30,7 +30,7 @@ namespace SerialComm
                 try
                 {
                     _serialPort.PortName = mPortName;   // 
-                    _serialPort.BaudRate = mBaudRate;   // 
+                    _serialPort.BaudRate = mBaudRate;   //
 
                     _serialPort.DataBits = 8;           //
                     _serialPort.Parity = Parity.None;   //
@@ -38,7 +38,7 @@ namespace SerialComm
                     _serialPort.ReadTimeout = 50;       //
                     _serialPort.WriteTimeout = 1;       //
                     _serialPort.NewLine = "\n";         //
-
+                    
                     _serialPort.Open();
                     _serialPort.DiscardOutBuffer();
                     _serialPort.DiscardInBuffer();

@@ -15,7 +15,7 @@ public class TopBarBtn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        OnClickedFileBtn();
+        OnClickedControlBtn();
     }
 	
 	// Update is called once per frame

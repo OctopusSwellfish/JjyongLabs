@@ -7,7 +7,7 @@ namespace SerialComm
     public class GrblCommand
     {
         string typeOfMovement = "G0 ";
-        string newline = "\n";
+        string newline = " \n";
         
 
         public string TestCommand()

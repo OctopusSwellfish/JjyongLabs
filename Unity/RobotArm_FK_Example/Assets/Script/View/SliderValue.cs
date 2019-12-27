@@ -43,6 +43,7 @@ public class SliderValue : MonoBehaviour {
     }
     public void UpdateValue ()
     {
+        
         //slider.value = (int)slider.value;
         textValue.text = slider.value.ToString();
     }
@@ -100,6 +101,7 @@ public class SliderValue : MonoBehaviour {
                 ArtSlider[3].value = 0;
                 ArtSlider[4].value = 0;
                 ArtSlider[5].value = 0;
+                
                 
                 break;
 
